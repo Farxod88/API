@@ -2,6 +2,7 @@ from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializers import TalabaSerializers
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from .models import *
 
 
@@ -23,3 +24,11 @@ def Test_post(request):
     serializer.save()
     
     return Response({'status':200, 'data':serializer.data, 'message':'malumot qabul qilindi!'})
+
+class PostList(ListCreateAPIView):
+    queryset = Talaba.objects.all()
+    serializer_class = TalabaSerializers
+
+class PostDetail(RetrieveUpdateDestroyAPIView):
+    queryset = Talaba.objects.all()
+    serializer_class = TalabaSerializers
